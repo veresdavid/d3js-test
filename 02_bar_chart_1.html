@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bar Chart 1</title>
+    <script src="js/d3.min.js"></script>
+</head>
+
+<body>
+
+    <div class="chart"></div>
+
+    <div class="chart2"></div>
+
+    <script>
+
+        // This file is based on: https://bost.ocks.org/mike/bar/
+
+        // the data array
+        var data = [3, 1, 5, 12, 7];
+
+        // Generate the chart
+
+        // Select the div with class chart
+        var div = d3.select(".chart");
+
+        // Select the non-existing bars! Strange, but it will work! Its called data join.
+        var bars = div.selectAll("div");
+
+        // Join the data
+        var barsUpdate = bars.data(data);
+
+        // Append the new divs
+        var barsEnter = barsUpdate.enter().append("div");
+
+        // Make it fancy
+        barsEnter.style("width", function (d) {
+            return d * 10 + "px";
+        });
+
+        barsEnter.style("background-color", "steelblue");
+
+        barsEnter.style("color", "white");
+
+        barsEnter.text(function (d) {
+            return d;
+        });
+
+        // Now in a shorter form + scale
+
+        // Here x is not just an object, is a function, which can scale the given domain to the given range.
+        var x = d3.scaleLinear()
+            .domain([0, d3.max(data)])
+            .range([0, 500]);
+
+        // Basically its the same chart then above, but in a shorter form + scale
+        d3.select(".chart2")
+            .selectAll("div")
+            .data(data)
+            .enter()
+            .append("div")
+            .style("width", function (d) {
+                return x(d) + "px";
+            })
+            .style("background-color", "yellowgreen")
+            .text(function (d) {
+                return d;
+            });
+
+    </script>
+
+</body>
+
+</html>
