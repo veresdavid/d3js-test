@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Introduction</title>
+    <script src="js/d3.min.js"></script>
+</head>
+
+<body>
+
+    <p>First paragraph</p>
+    <p>Second paragraph</p>
+    <p>Third paragraph</p>
+    <p>Fourth paragraph</p>
+
+    <h1>First header</h1>
+    <h1>Second header</h1>
+    <h1>Third header</h1>
+    <h1>Fourth header</h1>
+
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+
+    <script>
+
+        // D3.js style selection
+        d3.selectAll("p").style("background-color", "yellowgreen");
+
+        // dynamic properties
+        d3.selectAll("h1").style("color", function () {
+            var r = Math.trunc(Math.random()*256);
+            var g = Math.trunc(Math.random()*256);
+            var b = Math.trunc(Math.random()*256);
+            var color = "rgb(" + r + ", " + g + ", " + b + ")";
+            return color;
+        });
+
+        // data
+        var data = [10, 3, 7, 5, 8, 11];
+        var divs = d3.selectAll("div")
+            .data(data)
+            .style("color", "white")
+            .style("background-color", "steelblue")
+            .style("width", function (d) {
+                return d * 50 + "px";
+            })
+            .style("margin", "2px")
+            .text(function (d) {
+                return d;
+            });
+
+        // enter and exit
+        // there are 6 elements in the data array, but only 4 divs: the remaining 2 elements are handled by the enter()
+        divs.enter()
+            .append("div")
+            .text(function (d) {
+                return d;
+            });
+
+        divs.exit()
+            .remove();
+
+        // transition
+        d3.select("body")
+            .transition()
+            .duration(2000)
+            .style("background-color", "beige");
+
+    </script>
+
+</body>
+
+</html>
