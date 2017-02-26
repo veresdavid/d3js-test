@@ -5,3 +5,6 @@ A D3.js kezdőoldalán található [példák](https://d3js.org/#introduction) ki
 
 ## 02_bar_chart_1.html
 A D3.js tutorialjai közül az [első](https://bost.ocks.org/mike/bar/), ami diagrammokkal foglalkozik, segit megértettni, hogyan generáljunk egy egyszerű adatokat tartalmazó tömbből egy szép diagrammot.
+
+## 03_bar_chart_2.html
+D3.js segitségével oszlopdiagram készitése, SVG generálásval, adatok fájlból való beolvasásával. [Link](https://bost.ocks.org/mike/bar/2/)
