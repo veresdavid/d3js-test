@@ -11,3 +11,6 @@ D3.js segitségével oszlopdiagram készitése, SVG generálásval, adatok fájl
 
 ## 04_graph_static.html
 Egy statikus gráf kirajzolása, beégetett koordináták alapján, egy kis animációval feldobva.
+
+## 05_graph_force_directed.html
+A D3.js [tutorialja](https://bl.ocks.org/mbostock/4062045) alapján egy olyan gráf kirajzolása, melynek adatait egy JSON fájlból olvassuk ki, és a csomópontok automatikusan kerülnek elhelyezésre, force-directed módon.
