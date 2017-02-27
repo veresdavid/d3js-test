@@ -8,3 +8,6 @@ A D3.js tutorialjai közül az [első](https://bost.ocks.org/mike/bar/), ami dia
 
 ## 03_bar_chart_2.html
 D3.js segitségével oszlopdiagram készitése, SVG generálásval, adatok fájlból való beolvasásával. [Link](https://bost.ocks.org/mike/bar/2/)
+
+## 04_graph_static.html
+Egy statikus gráf kirajzolása, beégetett koordináták alapján, egy kis animációval feldobva.
