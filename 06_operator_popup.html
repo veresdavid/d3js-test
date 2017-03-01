@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Operator Popup</title>
+    <script src="js/d3.min.js"></script>
+
+    <style>
+
+        .links line {
+            stroke: #999;
+            stroke-opacity: 0.6;
+        }
+
+        .nodes circle {
+            stroke: #fff;
+            stroke-width: 1.5px;
+        }
+
+        #operatorDescription {
+            position: absolute;
+            border: 2px solid black;
+            background-color: cornflowerblue;
+            color: white;
+            font-size: larger;
+            padding: 15px;
+            text-align: center;
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <svg width="960" height="600"></svg>
+
+    <div id="operatorDescription"></div>
+
+    <script>
+
+        // Based on: http://bl.ocks.org/d3noob/a22c42db65eb00d4e369
+
+        var svg = d3.select("svg"),
+            width = +svg.attr("width"),
+            height = +svg.attr("height");
+
+        var simulation = d3.forceSimulation()
+            .force("link", d3.forceLink().distance(100))
+            .force("charge", d3.forceManyBody())
+            .force("center", d3.forceCenter(width / 2, height / 2));
+
+        d3.json("data/sample.json", function(error, graph) {
+            if (error) throw error;
+
+            var link = svg.append("g")
+                .attr("class", "links")
+                .selectAll("line")
+                .data(graph.links)
+                .enter().append("line")
+                .attr("stroke-width", function(d, i) { return 1; });
+
+            var node = svg.append("g")
+                .attr("class", "nodes")
+                .selectAll("circle")
+                .data(graph.nodes)
+                .enter().append("circle")
+                .attr("r", 10)
+                .attr("fill", function(d) { return "steelblue"; });
+
+            var operator = svg.append("g")
+                .attr("class", "operators")
+                .selectAll("circle")
+                .data(graph.links)
+                .enter().append("circle")
+                .attr("r", 4)
+                .attr("fill", "grey")
+                .on("mouseover", function (d) {
+
+                    d3.select(this)
+                        .transition()
+                        .duration(100)
+                        .attr("r", 8);
+
+                    d3.select("#operatorDescription")
+                        .style("left", (d3.event.pageX + 20) + "px")
+                        .style("top", (d3.event.pageY - 5) + "px")
+                        .text(d.source.id + " --> " + d.target.id)
+                        .transition()
+                        .duration(100)
+                        .style("opacity", 0.8);
+
+                })
+                .on("mouseout", function () {
+
+                    d3.select(this)
+                        .transition()
+                        .duration(100)
+                        .attr("r", 4);
+
+                    d3.select("#operatorDescription")
+                        .transition()
+                        .duration(100)
+                        .style("opacity", 0);
+
+                });
+
+            node.append("title")
+                .text(function(d) { return d.id; });
+
+            simulation
+                .nodes(graph.nodes)
+                .on("tick", ticked);
+
+            simulation.force("link")
+                .links(graph.links);
+
+            function ticked() {
+                link
+                    .attr("x1", function(d) { return d.source.x; })
+                    .attr("y1", function(d) { return d.source.y; })
+                    .attr("x2", function(d) { return d.target.x; })
+                    .attr("y2", function(d) { return d.target.y; });
+
+                node
+                    .attr("cx", function(d) { return d.x; })
+                    .attr("cy", function(d) { return d.y; });
+
+                operator.attr("cx", function (d) {
+                    return (d.source.x + d.target.x) / 2;
+                })
+                    .attr("cy", function (d) {
+                        return (d.source.y + d.target.y) / 2;
+                    });
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -14,3 +14,6 @@ Egy statikus gráf kirajzolása, beégetett koordináták alapján, egy kis anim
 
 ## 05_graph_force_directed.html
 A D3.js [tutorialja](https://bl.ocks.org/mbostock/4062045) alapján egy olyan gráf kirajzolása, melynek adatait egy JSON fájlból olvassuk ki, és a csomópontok automatikusan kerülnek elhelyezésre, force-directed módon.
+
+## 06_operator_popup.html
+Egy példa gráf beolvasása JSON fájlból, csomópontok automatikus elhelyezése force-directed módon. Az élek közepén található egy kis kör, amire ha ráállunk egérrel, egy kis felvillanó dobozban információkat tudhatunk meg az adott élről.
